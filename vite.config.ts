@@ -14,6 +14,32 @@ import path from 'path';
 
 // https://vitejs.dev/config/
 export default defineConfig({
+  resolve: {
+    alias: {
+      '@': fileURLToPath(new URL('./src', import.meta.url)),
+    },
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        additionalData: `@use "@/styles/var.scss" as *;`,
+      },
+    },
+  },
+  server: {
+    proxy: {
+      '/admin/api': {
+        target: 'https://test-tencent.ylzpay.com',
+        changeOrigin: true,
+        configure: (proxy) => {
+          proxy.on('proxyReq', (proxyRes) => {
+            const { method, protocol, path, host } = proxyRes;
+            console.log(`[PROXY ${method}]: ${protocol}//${host}${path}`);
+          });
+        },
+      },
+    },
+  },
   plugins: [
     vue(),
     vueJsx(),
@@ -49,16 +75,9 @@ export default defineConfig({
       symbolId: 'icon-[name]',
     }),
   ],
-  resolve: {
-    alias: {
-      '@': fileURLToPath(new URL('./src', import.meta.url)),
-    },
+  build: {
+    target: 'es5',
+    minify: 'terser',
   },
-  css: {
-    preprocessorOptions: {
-      scss: {
-        additionalData: `@use "@/styles/var.scss" as *;`,
-      },
-    },
-  },
+  envDir: './env',
 });

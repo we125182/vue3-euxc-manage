@@ -8,6 +8,7 @@ module.exports = {
     'eslint:recommended',
     '@vue/eslint-config-typescript/recommended',
     '@vue/eslint-config-prettier',
+    './types/eslint-auto-imports.json',
   ],
   env: {
     'vue/setup-compiler-macros': true,
@@ -19,5 +20,6 @@ module.exports = {
         singleQuote: true,
       },
     ],
+    'vue/multi-word-component-names': 'off',
   },
 };

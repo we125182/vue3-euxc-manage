@@ -1,0 +1,15 @@
+@use 'element-plus.scss';
+
+html, body {
+  height: 100%;
+}
+
+#app {
+  height: 100%;
+  color: $color-primary;
+}
+
+.page-content {
+  height: 100%;
+  flex: 1;
+}

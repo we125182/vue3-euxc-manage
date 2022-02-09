@@ -11,6 +11,7 @@ import { fileURLToPath, URL } from 'url';
 import { defineConfig } from 'vite';
 import { createSvgIconsPlugin } from 'vite-plugin-svg-icons';
 import path from 'path';
+import legacy from '@vitejs/plugin-legacy';
 
 // https://vitejs.dev/config/
 export default defineConfig({
@@ -74,10 +75,7 @@ export default defineConfig({
       iconDirs: [path.resolve(__dirname, './src/assets/icons')],
       symbolId: 'icon-[name]',
     }),
+    legacy(),
   ],
-  build: {
-    target: 'es5',
-    minify: 'terser',
-  },
   envDir: './env',
 });
